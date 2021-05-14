@@ -25,6 +25,7 @@ class EmacsGtk < Formula
   depends_on "pkg-config" => :build
   depends_on "gnutls"
   depends_on "jansson"
+  depends_on "gtk+3"
 
   uses_from_macos "libxml2"
   uses_from_macos "ncurses"
