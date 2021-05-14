@@ -20,7 +20,8 @@ class EmacsGtk < Formula
   depends_on "gtk+3"
   depends_on "libxpm"
   depends_on "giflib"
-
+  depends_on "alsa-lib"
+  
   uses_from_macos "libxml2"
   uses_from_macos "ncurses"
 
@@ -39,6 +40,15 @@ class EmacsGtk < Formula
       --enable-locallisppath=#{HOMEBREW_PREFIX}/share/emacs/site-lisp
       --infodir=#{info}/emacs
       --prefix=#{prefix}
+      --enable-libsystemd
+      --with-pop=yes
+      --with-sound=alsa
+      --without-gconf
+      --with-mailutils
+      --build x86_64-linux-gnu
+      --with-x=yes
+      --with-x-toolkit=gtk3
+      --with-toolkit-scroll-bars
     ]
 
     if build.head?
