@@ -26,6 +26,8 @@ class EmacsGtk < Formula
   depends_on "gnutls"
   depends_on "jansson"
   depends_on "gtk+3"
+  depends_on "libxpm"
+  depends_on "giflib"
 
   uses_from_macos "libxml2"
   uses_from_macos "ncurses"
@@ -45,27 +47,12 @@ class EmacsGtk < Formula
       --enable-locallisppath=#{HOMEBREW_PREFIX}/share/emacs/site-lisp
       --infodir=#{info}/emacs
       --prefix=#{prefix}
-      --with-gnutls
-      --with-xml2
-      --without-dbus
-      --with-modules
-      --without-ns
-      --without-imagemagick
-      --without-selinux
     ]
 
     if build.head?
       ENV.prepend_path "PATH", Formula["gnu-sed"].opt_libexec/"gnubin"
       system "./autogen.sh"
     end
-
-    File.write "lisp/site-load.el", <<~EOS
-      (setq exec-path (delete nil
-        (mapcar
-          (lambda (elt)
-            (unless (string-match-p "Homebrew/shims" elt) elt))
-          exec-path)))
-    EOS
 
     system "./configure", *args
     system "make"
